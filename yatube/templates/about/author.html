@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+   <title>
+      Об авторе проекта
+   </title> 
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <figure class="text-end">
+    <blockquote class="blockquote">
+      <p>Читать всего совсем не нужно, читать нужно только то, что отвечает на  возникшие в душе вопросы</p>
+    </blockquote>
+    <figcaption class="blockquote-footer">
+      Л.Н. Толстой
+    </figcaption>
+  </figure>
+      <div class="col-md-10 p-3">
+        <h6>
+          Привет, меня зовут Мария Одринская!<br>
+          Я люблю литературу и объединяю людей с такими же интресами.<br>
+          Это мой блог - книжный клуб.
+        </h6>
+        <img src="{% static "img/120.jpg" %}" width="500" height="258" class="d-inline-block align-top" alt="">
+        <p>
+          <article>
+          Литературные кружки привлекают самых разных людей, которые собираются вместе раз в месяц (или чаще), чтобы обсудить прочитанную книгу. Книголюбы хотят делиться впечатлениями от прочитанного. А где еще это делать, как не в команде единомышленников? Всем интересно, что думают друзья по клубу, какие эмоции пробудила та или иная книга у другого человека.<br>
+          Здесь вы сможете опубликовать рецензии на прочитаннные книги или свои собственные сочинения, прочитать работы других авторов и оставить комментарии.
+          </article>
+        </p>
+        <ul>
+        <div class="col-md-10 p-3">
+          <i>Мои контакты:</i>
+          <li>cсылка на мой аккаунт в Github: <a href="https://github.com/mariao-max" target="_blank">https://github.com/mariao-max</a></li>
+          <li>cсылка на мой аккаунт в Facebook: <a href="https://www.facebook.com/maria.gorobets.3" target="_blank">https://www.facebook.com/maria.gorobets.3</a></li> 
+        </ul>
+        </div>
+      </div>
+</div>    
+{% endblock %}

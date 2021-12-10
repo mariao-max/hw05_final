@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {% if is_index %} 
+   <title>
+    Последние обновления на сайте
+   </title> 
+  {% else %}
+    <title>
+      Ваши подписки
+   </title> 
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container py-5"> 
+  {% include 'posts/includes/switcher.html' %}
+    {% if is_index %}    
+      <h1> Последние обновления на сайте </h1>
+    {% else %}
+      <h1> Ваши подписки </h1>
+    {% endif %}
+    {% load cache %}
+      {% cache 20 page_obj %}
+      {% include 'posts/includes/post.html' %}
+      {% include 'posts/includes/paginator.html' %}   
+    {% endcache %}
+</div>      
+{% endblock %}
+      
