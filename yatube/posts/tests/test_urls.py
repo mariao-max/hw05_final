@@ -61,9 +61,9 @@ class PostURLTests(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_pages_only_for_authorized(self):
-        """Страницы /posts/1/comment/, /create/, /follow/, 
+        """Страницы /posts/1/comment/, /create/,/follow/,
         доступны авторизованному пользователю."""
-        urls = ['/create/','/follow/', '/posts/1/comment/']
+        urls = ['/create/', '/follow/', '/posts/1/comment/']
         for url in urls:
             response = self.authorized_not_author_client.get(url, follow=True)
             self.assertEqual(response.status_code, HTTPStatus.OK)
@@ -71,25 +71,24 @@ class PostURLTests(TestCase):
     def test_404(self):
         """При запросе несуществующей страницы сервер возвращает код 404."""
         response = self.guest_client.get('/about/one/')
-        self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)          
-
+        self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
 
     def test_post_create_url_redirect_anonymous_on_admin_login(self):
-        """Страницы по адресу /create/, /follow/, /profile/author/follow/, 
+        """Страницы по адресу /create/, /follow/, /profile/author/follow/,
         /profile/author/unfollow/, /posts/1/edit/ перенаправят анонимного
         пользователя на страницу логина.
         """
         dict = {'/create/': '/auth/login/?next=/create/',
                 '/follow/': '/auth/login/?next=/follow/',
-                '/profile/leo/follow/': '/auth/login/?next=/profile/leo/follow/',
-                '/profile/leo/unfollow/': '/auth/login/?next=/profile/leo/unfollow/',
-                '/posts/1/edit/': '/auth/login/?next=/posts/1/edit/'
-        }
+                '/profile/leo/follow/':
+                '/auth/login/?next=/profile/leo/follow/',
+                '/profile/leo/unfollow/':
+                '/auth/login/?next=/profile/leo/unfollow/',
+                '/posts/1/edit/': '/auth/login/?next=/posts/1/edit/'}
         for url, redirect in dict.items():
             with self.subTest(url=url):
-                response=self.guest_client.get(url, follow=True)
-                self.assertRedirects(response,redirect)
-
+                response = self.guest_client.get(url, follow=True)
+                self.assertRedirects(response, redirect)
 
     def test_urls_uses_correct_template(self):
         """URL-адрес использует соответствующий шаблон."""
@@ -97,7 +96,3 @@ class PostURLTests(TestCase):
             with self.subTest(url=url):
                 response = self.authorized_not_author_client.get(url)
                 self.assertTemplateUsed(response, template)
-
-    
-
-    
