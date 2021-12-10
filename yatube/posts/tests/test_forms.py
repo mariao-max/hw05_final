@@ -139,6 +139,7 @@ class PostFormTests(TestCase):
             data=commentform_data,
             follow=True,
         )
+
         expected_redirect = str(reverse('users:login') + '?next='
                                 + reverse('posts:add_comment',
                                           args=[self.post.id]))

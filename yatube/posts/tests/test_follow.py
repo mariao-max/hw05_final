@@ -1,6 +1,7 @@
 import shutil
 import tempfile
 
+
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase, override_settings
@@ -62,9 +63,11 @@ class FollowTest(TestCase):
         URL = reverse('posts:profile_follow', args=[self.author.username])
         follows_before = Follow.objects.count()
         self.authorized_client.get(URL, follow=True)
+        followers_count = self.user.follower.count()
         self.assertEqual(Follow.objects.count(), follows_before + 1)
         self.assertTrue(Follow.objects.filter(user=self.user,
                                               author=self.author).exists())
+        self.assertEqual(followers_count, 1)
 
     def test_unfollow(self):
         """Авторизованный пользователь может удалять
