@@ -62,10 +62,29 @@ class FollowTest(TestCase):
         подписываться на других пользователей"""
         URL = reverse('posts:profile_follow', args=[self.author.username])
         follows_before = Follow.objects.count()
+        self.assertFalse(Follow.objects.filter(user=self.user,
+                                               author=self.author).exists())
         self.authorized_client.get(URL, follow=True)
         self.assertEqual(Follow.objects.count(), follows_before + 1)
         self.assertTrue(Follow.objects.filter(user=self.user,
                                               author=self.author).exists())
+
+    def test_no_self_follow(self):
+        """Запрет на подписку на себя"""
+        follows_before = Follow.objects.count()
+        URL = reverse('posts:profile_follow', args=[self.user.username])
+        self.authorized_client.get(URL, follow=True)
+        self.assertEqual(Follow.objects.count(), follows_before)
+        self.assertFalse(Follow.objects.filter(user=self.user,
+                                               author=self.user).exists())
+
+    def test_no_double_follow(self):
+        """Запрет на повторную подписку"""
+        URL = reverse('posts:profile_follow', args=[self.author.username])
+        follows_before = Follow.objects.count()
+        self.authorized_client.get(URL, follow=True)
+        self.authorized_client.get(URL, follow=True)
+        self.assertEqual(Follow.objects.count(), follows_before + 1)
 
     def test_unfollow(self):
         """Авторизованный пользователь может удалять

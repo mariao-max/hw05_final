@@ -47,7 +47,8 @@
             Редактировать пост
           </a>
         {% endif %}
-      </article>   
+      </article>
+      {% if user.is_authenticated %}
         <div class="card my-4">
           <h5 class="card-header">Добавить комментарий:</h5>
           <div class="card-body">
@@ -60,81 +61,21 @@
               <button type="submit" class="btn btn-primary">Отправить</button>
             </form>
           </div>
-        </div>
-      {% for comment in comments %}
-        <div class="media mb-4">
-          <div class="media-body">
-            <h5 class="mt-0">
-              <a href="{% url 'posts:profile' comment.author.username %}">
-                {{ comment.author.username }}
-              </a>
-            </h5>
-              <p>
-                {{ comment.text|linebreaks }}
-              </p>
-        </div>
-      {% endfor %}
+        </div>  
+        {% for comment in comments %}
+          <div class="media mb-4">
+            <div class="media-body">
+              <h5 class="mt-0">
+                <a href="{% url 'posts:profile' comment.author.username %}">
+                  {{ comment.author.username }}
+                </a>
+              </h5>
+                <p>
+                  {{ comment.text|linebreaks }}
+                </p>
+          </div>
+        {% endfor %}
+      {% endif %} 
     </div>
   </div>      
 {% endblock %}    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

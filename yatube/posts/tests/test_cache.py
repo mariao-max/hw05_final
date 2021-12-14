@@ -27,8 +27,8 @@ class PaginatorViewsTest(TestCase):
             author=cls.author
         )
 
-    def test_cache_on_index_page_works_correct(self):
-        """Кэширование данных на главной странице работает корректно."""
+    def test_cache_on_index_page_exists(self):
+        """Кэширование данных на главной странице существует."""
         response = self.authorized_client.get(URL_INDEX)
         cached_response_content = response.content
         Post.objects.all().delete()
@@ -38,7 +38,17 @@ class PaginatorViewsTest(TestCase):
             cached_response_content,
             cached_content_after_delete
         )
+
+    def test_cache_on_index_page_updates(self):
+        """Данные на странице обновляются."""
+        response = self.authorized_client.get(URL_INDEX)
+        cached_response_content = response.content
         cache.clear()
+        Post.objects.create(
+            text='some_text',
+            group=self.group,
+            author=self.author
+        )
         response = self.authorized_client.get(URL_INDEX)
         self.assertNotEqual(
             cached_response_content,

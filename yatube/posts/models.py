@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models import Q, F
 
 User = get_user_model()
 
@@ -68,6 +69,9 @@ class Comment(models.Model):
     text = models.TextField(verbose_name='Комментарий',
                             help_text='Введите комментарий')
 
+    def __str__(self):
+        return self.text
+
 
 class Follow(models.Model):
     user = models.ForeignKey(
@@ -90,3 +94,8 @@ class Follow(models.Model):
             fields=['user', 'author'],
             name='unique_following'
         )
+        constraints = [
+            models.CheckConstraint(
+                check=~Q(user=F('author')),
+                name='no_yourself_follow')
+        ]
