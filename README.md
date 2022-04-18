@@ -15,9 +15,10 @@ cd hw05_final
 - Установите и активируйте виртуальное окружение:
 
 $ venv/Scripts/activate
-$ python -m pip install --upgrade pip
 
 - Установите все зависимости из файла requirements.txt
+
+$ python -m pip install --upgrade pip
 
 $ pip install -r requirements.txt
 
