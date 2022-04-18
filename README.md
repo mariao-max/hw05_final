@@ -8,9 +8,9 @@ Python 3, Django 2.2, pytest
 ### Запуск проекта в dev-режиме:
 - Клонируйте репозиторий и перейдити в него в командной строке.
 
-git clone https://github.com/mariao-max/hw05_final
+$ git clone https://github.com/mariao-max/hw05_final
 
-cd hw05_final
+$ cd hw05_final
 
 - Установите и активируйте виртуальное окружение:
 
@@ -29,6 +29,10 @@ $ python manage.py migrate
 - Запустите проект:
 
 $ python manage.py runserver
+
+- Создать суперпользователя:
+
+$ python3 manage.py createsuperuser
 
 ### Сервис доступен по адресу:
 
